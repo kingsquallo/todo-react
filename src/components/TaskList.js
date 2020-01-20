@@ -4,37 +4,37 @@ import TaskItem from './TaskItem'
 export class TaskList extends Component {
     constructor(props) {
         super(props)
-    
+
         this.state = {
-             filterName : '',
-             filterStatus : -1
+            filterName: '',
+            filterStatus: -1
         }
     }
-    
+
     onChange = (event) => {
         var name = event.target.name;
         var value = event.target.value;
         this.props.onFilter(
-            name === 'filterName' ?  value : this.state.filterName,
-            name === 'filterStatus' ?  value : this.state.filterStatus
+            name === 'filterName' ? value : this.state.filterName,
+            name === 'filterStatus' ? value : this.state.filterStatus
         )
         this.setState({
-            [name] : value
+            [name]: value
         })
     }
-    
+
     render() {
         const { tasks } = this.props;
-        const { filterStatus ,filterName } = this.state;
-        var elmTask = tasks.map((task,index)=>{
-            return <TaskItem 
-                    key={task.id} 
-                    index={index}
-                    task={task} 
-                    onUpdateStatus={this.props.onUpdateStatus}
-                    onDelete={this.props.onDelete}
-                    onUpdate={this.props.onUpdate}
-                    />
+        const { filterStatus, filterName } = this.state;
+        var elmTask = tasks.map((task, index) => {
+            return <TaskItem
+                key={task.id}
+                index={index}
+                task={task}
+                onUpdateStatus={this.props.onUpdateStatus}
+                onDeleteTask={this.props.onDeleteTask}
+                onSelectedItem={this.props.onSelectedItem}
+            />
         })
         return (
             <div className="row mt-15">
@@ -52,20 +52,20 @@ export class TaskList extends Component {
                             <tr>
                                 <td />
                                 <td>
-                                    <input type="text" 
-                                        className="form-control" 
+                                    <input type="text"
+                                        className="form-control"
                                         name="filterName"
                                         value={filterName}
                                         onChange={this.onChange}
                                     />
                                 </td>
                                 <td>
-                                    <select 
+                                    <select
                                         className="form-control"
                                         name="filterStatus"
                                         value={filterStatus}
                                         onChange={this.onChange}
-                                        >
+                                    >
                                         <option value={-1}>Tất Cả</option>
                                         <option value={0}>Ẩn</option>
                                         <option value={1}>Kích Hoạt</option>

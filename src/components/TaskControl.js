@@ -9,8 +9,8 @@ export class TaskControl extends Component {
                 {/*Search*/}
                 <TaskSearchControl onSearch={this.props.onSearch} />
                 {/*Sort*/}
-                <TaskSortControl 
-                    onSort={this.props.onSort} 
+                <TaskSortControl
+                    onSort={this.props.onSort}
                     sortBy={this.props.sortBy}
                     sortValue={this.props.sortValue}
                 />
