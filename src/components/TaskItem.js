@@ -17,8 +17,8 @@ export class TaskItem extends Component {
         this.props.onUpdateStatus(this.props.task.id)
     }
 
-    onDelete = () => {
-        this.props.onDelete(this.props.task.id)
+    onDeleteTask = () => {
+        this.props.onDeleteTask(this.props.task.id)
     }
 
     onSelectedItem = () => {
@@ -43,7 +43,7 @@ export class TaskItem extends Component {
                         <span className="fa fa-pencil mr-5" />Sửa
                     </button>
                     &nbsp;
-                    <button type="button" className="btn btn-danger" onClick={this.onDelete}>
+                    <button type="button" className="btn btn-danger" onClick={this.onDeleteTask}>
                         <span className="fa fa-trash mr-5" />Xóa
                     </button>
                 </td>

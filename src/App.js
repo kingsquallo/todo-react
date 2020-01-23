@@ -1,5 +1,6 @@
-import React, { Component } from 'react';
 import './App.css';
+import uuid from "uuid";
+import React, { Component } from 'react';
 import TaskForm from './components/TaskForm';
 import TaskControl from './components/TaskControl';
 import TaskList from './components/TaskList';
@@ -30,14 +31,6 @@ class App extends Component {
         }
     }
 
-    s4() {
-        return Math.floor(1 + Math.random() * 0x1000).toString(16).substring(1);
-    }
-
-    generateID() {
-        return this.s4() + this.s4() + '-' + this.s4() + '-' + this.s4() + '-' + this.s4() + '-' + this.s4() + this.s4() + this.s4();
-    }
-
     onToggleForm = () => {
         if (this.state.isDisplayForm && this.state.taskEditing !== null) {
             this.setState({
@@ -46,7 +39,7 @@ class App extends Component {
             })
         } else {
             this.setState({
-                isDisplayForm: !this.isDisplayForm,
+                isDisplayForm: !this.state.isDisplayForm,
                 taskEditing: null
             })
         }
@@ -67,7 +60,7 @@ class App extends Component {
     onSubmit = (data) => {
         var { tasks } = this.state;
         if (data.id === '') {
-            data.id = this.generateID();
+            data.id = uuid.v4();
             tasks.push(data);
         } else {
             var index = findIndex(tasks, { id: data.id });
