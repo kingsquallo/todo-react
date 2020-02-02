@@ -44,3 +44,17 @@ export const deleteTask = (id) => {
         id, // id: id
     }
 }
+
+export const updateTask = (task) => {
+    return {
+        type: types.UPDATE_TASK,
+        task, // task: task
+    }
+}
+
+export const editTask = (task) => {
+    return {
+        type: types.EDIT_TASK,
+        task, // task: task
+    }
+}

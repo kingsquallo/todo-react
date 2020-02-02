@@ -13,8 +13,6 @@ class App extends Component {
         super(props);
 
         this.state = {
-            isDisplayForm: false,
-            taskEditing: null,
             filterName: '',
             filterStatus: -1,
             keyword: '',
@@ -24,34 +22,22 @@ class App extends Component {
     }
 
     onToggleForm = () => {
-        // if (this.state.isDisplayForm && this.state.taskEditing !== null) {
-        //     this.setState({
-        //         isDisplayForm: true,
-        //         taskEditing: null
-        //     })
-        // } else {
-        //     this.setState({
-        //         isDisplayForm: !this.state.isDisplayForm,
-        //         taskEditing: null
-        //     })
-        // }
-        this.props.onToggleForm();
+        if (this.props.itemEditing && this.props.itemEditing.id !== '') {
+            this.props.onOpenForm();
+        } else {
+            this.props.onToggleForm();
+        }
+        this.props.onClearTask({
+            id: '',
+            name: '',
+            status: false
+        });
     }
 
     onShowForm = () => {
         this.setState({
             isDisplayForm: true
         })
-    }
-
-    onSelectedItem = (id) => {
-        var { tasks } = this.state;
-        var index = findIndex(tasks, { id: id });
-        var taskEditing = tasks[index];
-        this.setState({
-            taskEditing: taskEditing
-        })
-        this.onShowForm();
     }
 
     onFilter = (filterName, filterStatus) => {
@@ -76,7 +62,7 @@ class App extends Component {
     }
 
     render() {
-        var { taskEditing, filterName, filterStatus, keyword, sortBy, sortValue } = this.state;
+        var { filterName, filterStatus, keyword, sortBy, sortValue } = this.state;
         var { isDisplayForm } = this.props;
         // tasks = filter(tasks, (task) => {
         //     return includes(task.name.toLowerCase(), keyword.toLowerCase());
@@ -98,10 +84,6 @@ class App extends Component {
 
         // tasks = orderBy(tasks, [sortBy], [sortValue]);
 
-        var elmTaskForm = isDisplayForm === true ? <TaskForm
-            task={taskEditing}
-        /> : '';
-
         return (
             <div className="container">
                 <div className="text-center">
@@ -110,7 +92,7 @@ class App extends Component {
                 </div>
                 <div className="row">
                     <div className={isDisplayForm ? 'col-xs-4 col-sm-4 col-md-4 col-lg-4' : ''}>
-                        {elmTaskForm}
+                        <TaskForm />
                     </div>
                     <div className={isDisplayForm ? 'col-xs-8 col-sm-8 col-md-8 col-lg-8' : 'col-xs-12 col-sm-12 col-md-12 col-lg-12'}>
                         <button
@@ -127,7 +109,6 @@ class App extends Component {
                             sortValue={sortValue}
                         />
                         <TaskList
-                            onSelectedItem={this.onSelectedItem}
                             onFilter={this.onFilter}
                         />
                     </div>
@@ -138,14 +119,21 @@ class App extends Component {
 }
 const mapStateToProps = (state) => {
     return {
-        isDisplayForm: state.isDisplayForm
+        isDisplayForm: state.isDisplayForm,
+        itemEditing: state.itemEditing,
     }
 };
 
 const mapDispatchToProps = (dispatch, props) => {
     return {
-        onToggleForm : () =>{
+        onToggleForm: () => {
             dispatch(actions.toggleForm())
+        },
+        onClearTask: (task) => {
+            dispatch(actions.editTask(task))
+        },
+        onOpenForm: () => {
+            dispatch(actions.openForm())
         },
     }
 }
