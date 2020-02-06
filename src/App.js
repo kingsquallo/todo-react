@@ -1,10 +1,8 @@
 import './App.css';
-import uuid from "uuid";
 import React, { Component } from 'react';
 import TaskForm from './components/TaskForm';
 import TaskControl from './components/TaskControl';
 import TaskList from './components/TaskList';
-import { findIndex, filter, includes, orderBy } from 'lodash';
 import { connect } from 'react-redux'
 import * as actions from './actions/index'
 
@@ -13,8 +11,6 @@ class App extends Component {
         super(props);
 
         this.state = {
-            filterName: '',
-            filterStatus: -1,
             keyword: '',
             sortBy: 'name',
             sortValue: 'asc'
@@ -40,14 +36,6 @@ class App extends Component {
         })
     }
 
-    onFilter = (filterName, filterStatus) => {
-        filterStatus = parseInt(filterStatus);
-        this.setState({
-            filterName: filterName.toLowerCase(),
-            filterStatus: filterStatus,
-        })
-    }
-
     onSearch = (keyword) => {
         this.setState({
             keyword: keyword
@@ -62,25 +50,8 @@ class App extends Component {
     }
 
     render() {
-        var { filterName, filterStatus, keyword, sortBy, sortValue } = this.state;
+        var { keyword, sortBy, sortValue } = this.state;
         var { isDisplayForm } = this.props;
-        // tasks = filter(tasks, (task) => {
-        //     return includes(task.name.toLowerCase(), keyword.toLowerCase());
-        // })
-
-        // if (filterName) {
-        //     tasks = filter(tasks, (task) => {
-        //         return includes(task.name.toLowerCase(), filterName.toLowerCase());
-        //     })
-        // }
-
-        // tasks = filter(tasks, (task) => {
-        //     if (filterStatus === -1) {
-        //         return tasks;
-        //     } else {
-        //         return task.status === (filterStatus === 1 ? true : false);
-        //     }
-        // })
 
         // tasks = orderBy(tasks, [sortBy], [sortValue]);
 
@@ -108,9 +79,7 @@ class App extends Component {
                             sortBy={sortBy}
                             sortValue={sortValue}
                         />
-                        <TaskList
-                            onFilter={this.onFilter}
-                        />
+                        <TaskList />
                     </div>
                 </div>
             </div>
