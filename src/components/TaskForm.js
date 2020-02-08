@@ -47,7 +47,7 @@ class TaskForm extends Component {
 
     onSave = (event) => {
         event.preventDefault();
-        if (this.state.id !== null) {
+        if (this.state.id !== '') {
             this.props.onUpdateTask(this.state);
         }else{
             this.props.onAddTask(this.state);

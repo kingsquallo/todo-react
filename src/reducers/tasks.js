@@ -11,6 +11,7 @@ var myReducer = (state = initialState, action) => {
             return state;
 
         case ADD_TASK:
+            console.log('action', action)
             var newTask = {
                 id: uuid.v4(),
                 name: action.task.name,
