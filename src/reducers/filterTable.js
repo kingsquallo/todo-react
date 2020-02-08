@@ -1,4 +1,4 @@
-import * as types from "../constants/ActionTypes";
+import { FILTER_TABLE } from "../constants/ActionTypes";
 
 var initialState = {
     filterName: '',
@@ -7,7 +7,7 @@ var initialState = {
 
 var myReducer = (state = initialState, action) => {
     switch (action.type) {
-        case types.FILTER_TABLE:
+        case FILTER_TABLE:
             var {name,status} = action.filter;
             return {...state, filterName : name , filterStatus : parseInt(status,10)};
         default:

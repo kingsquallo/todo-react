@@ -1,16 +1,14 @@
-import { EDIT_TASK } from "../constants/ActionTypes";
+import { SORT } from "../constants/ActionTypes";
 
 var initialState = {
-    id: '',
-    name: '',
-    status: false
+    by : '',
+    value : '',
 };
 
 var myReducer = (state = initialState, action) => {
     switch (action.type) {
-        case EDIT_TASK:
-            state = action.task;
-            return state;
+        case SORT:
+            return {...state, by : action.sort.by ,value : action.sort.value};
         default:
             return state;
     }

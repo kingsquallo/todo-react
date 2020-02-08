@@ -7,15 +7,6 @@ import { connect } from 'react-redux'
 import * as actions from './actions/index'
 
 class App extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            keyword: '',
-            sortBy: 'name',
-            sortValue: 'asc'
-        }
-    }
 
     onToggleForm = () => {
         if (this.props.itemEditing && this.props.itemEditing.id !== '') {
@@ -30,30 +21,8 @@ class App extends Component {
         });
     }
 
-    onShowForm = () => {
-        this.setState({
-            isDisplayForm: true
-        })
-    }
-
-    onSearch = (keyword) => {
-        this.setState({
-            keyword: keyword
-        })
-    }
-
-    onSort = (sortBy, sortValue) => {
-        this.setState({
-            sortBy: sortBy,
-            sortValue: sortValue
-        })
-    }
-
     render() {
-        var { keyword, sortBy, sortValue } = this.state;
         var { isDisplayForm } = this.props;
-
-        // tasks = orderBy(tasks, [sortBy], [sortValue]);
 
         return (
             <div className="container">
@@ -73,12 +42,7 @@ class App extends Component {
                         >
                             <span className="fa fa-plus mr-5" />Thêm Công Việc
                         </button>
-                        <TaskControl
-                            onSearch={this.onSearch}
-                            onSort={this.onSort}
-                            sortBy={sortBy}
-                            sortValue={sortValue}
-                        />
+                        <TaskControl />
                         <TaskList />
                     </div>
                 </div>
